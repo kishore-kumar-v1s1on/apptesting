@@ -1,0 +1,131 @@
+// ─── KKSly Mock Data ─────────────────────────────────────────────────────────
+
+export const CATEGORIES = [
+  { id: "1", name: "Grocery.", emoji: "🛒", isDots: false },
+  { id: "2", name: "Vegetables", emoji: "🥦", isDots: false },
+  { id: "3", name: "Fruits", emoji: "🍎", isDots: false },
+  { id: "4", name: "Dairy", emoji: "🥛", isDots: false },
+  { id: "5", name: "Meat", emoji: "🥩", isDots: false },
+  { id: "6", name: "kicha", emoji: "🥩", isDots: false },
+  { id: "7", name: "medicine", emoji: "🥩", isDots: false },
+  { id: "8", name: "More", emoji: null, isDots: true },
+];
+
+export const RECOMMENDED_PRODUCTS = [
+  {
+    id: "1",
+    name: "Basmati Rice 5kg",
+    shops: 6,
+    emoji: "🌾",
+    badge: "10% OFF",
+  },
+  { id: "2", name: "Sunflower Oil 1L", shops: 8, emoji: "🫙", badge: null },
+  { id: "3", name: "Sugar 1kg", shops: 5, emoji: "🍬", badge: null },
+  { id: "4", name: "Milk 1L", shops: 7, emoji: "🥛", badge: null },
+];
+
+export const NEARBY_SHOPS = [
+  {
+    id: "1",
+    name: "Sakthi Grocery",
+    rating: 4.5,
+    reviews: 320,
+    distance: "500 m",
+    time: "20 mins",
+    open: true,
+    color: "#8B4513",
+    emoji: "🏪",
+  },
+  {
+    id: "2",
+    name: "Fresh Veg Shop",
+    rating: 4.6,
+    reviews: 92,
+    distance: "600 m",
+    time: "20–30 mins",
+    open: true,
+    color: "#2E7D32",
+    emoji: "🥬",
+  },
+  {
+    id: "3",
+    name: "Murugan Stores",
+    rating: 4.4,
+    reviews: 80,
+    distance: "800 m",
+    time: "25–35 mins",
+    open: true,
+    color: "#1565C0",
+    emoji: "🏬",
+  },
+  {
+    id: "4",
+    name: "Kannan Provisions",
+    rating: 4.3,
+    reviews: 60,
+    distance: "1.0 km",
+    time: "30–40 mins",
+    open: true,
+    color: "#6A1B9A",
+    emoji: "🏷",
+  },
+  {
+    id: "5",
+    name: "Sakthi Grocery",
+    rating: 4.5,
+    reviews: 320,
+    distance: "500 m",
+    time: "20 mins",
+    open: true,
+    color: "#8B4513",
+    emoji: "🏪",
+  },
+  {
+    id: "6",
+    name: "Fresh Veg Shop",
+    rating: 4.6,
+    reviews: 92,
+    distance: "600 m",
+    time: "20–30 mins",
+    open: true,
+    color: "#2E7D32",
+    emoji: "🥬",
+  },
+  {
+    id: "7",
+    name: "Murugan Stores",
+    rating: 4.4,
+    reviews: 80,
+    distance: "800 m",
+    time: "25–35 mins",
+    open: true,
+    color: "#1565C0",
+    emoji: "🏬",
+  },
+  {
+    id: "8",
+    name: "Kannan Provisions",
+    rating: 4.3,
+    reviews: 60,
+    distance: "1.0 km",
+    time: "30–40 mins",
+    open: true,
+    color: "#6A1B9A",
+    emoji: "🏷",
+  },
+];
+
+export const FEATURES = [
+  { id: "1", icon: "🛵", title: "Fast Delivery", sub: "To your doorstep" },
+  { id: "2", icon: "⭐", title: "Best Quality", sub: "Always fresh" },
+  { id: "3", icon: "🔒", title: "Secure Payments", sub: "100% safe" },
+  { id: "4", icon: "📦", title: "Easy Returns", sub: "Hassle free" },
+];
+
+export const NAV_TABS = [
+  { name: "Home", emoji: "🏠", badge: null },
+  { name: "Categories", emoji: "⊞", badge: null },
+  { name: "Cart", emoji: "🛒", badge: 3 },
+  { name: "Orders", emoji: "📋", badge: null },
+  { name: "Shops", emoji: "🏪", badge: null },
+];
