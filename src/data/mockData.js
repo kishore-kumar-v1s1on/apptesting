@@ -427,11 +427,37 @@ const SHOP_CATEGORY_MAP = {
   "12": ["snacks"],
 };
 
+// Map a product category → representative Unsplash image so every product
+// has an `image` field by default. Easy to override per product later.
+const PRODUCT_CATEGORY_IMAGE = {
+  grocery:
+    "https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&auto=format&fit=crop&q=60",
+  vegetables:
+    "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&auto=format&fit=crop&q=60",
+  fruits:
+    "https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=400&auto=format&fit=crop&q=60",
+  dairy:
+    "https://images.unsplash.com/photo-1628088062854-d1870b4553da?w=400&auto=format&fit=crop&q=60",
+  meat:
+    "https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=400&auto=format&fit=crop&q=60",
+  snacks:
+    "https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=400&auto=format&fit=crop&q=60",
+  beverages:
+    "https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400&auto=format&fit=crop&q=60",
+};
+
+const withImage = (product) => ({
+  ...product,
+  image: product.image ?? PRODUCT_CATEGORY_IMAGE[product.category],
+});
+
 export const getShopById = (id) =>
   NEARBY_SHOPS.find((s) => String(s.id) === String(id));
 
 export const getProductsByShop = (shopId) => {
   const cats = SHOP_CATEGORY_MAP[String(shopId)];
-  if (!cats) return ALL_PRODUCTS.slice(0, 12);
-  return ALL_PRODUCTS.filter((p) => cats.includes(p.category));
+  const list = !cats
+    ? ALL_PRODUCTS.slice(0, 12)
+    : ALL_PRODUCTS.filter((p) => cats.includes(p.category));
+  return list.map(withImage);
 };

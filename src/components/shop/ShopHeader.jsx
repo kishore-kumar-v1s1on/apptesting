@@ -1,3 +1,4 @@
+import { Image } from "expo-image";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import {
@@ -31,6 +32,14 @@ const ShopHeader = ({ shop, onBack }) => (
 
     {/* Hero image */}
     <View style={[styles.hero, { backgroundColor: shop.color + "33" }]}>
+      {shop.image ? (
+        <Image
+          source={{ uri: shop.image }}
+          style={styles.heroImage}
+          contentFit="cover"
+          transition={200}
+        />
+      ) : null}
       <Text style={styles.heroEmoji}>{shop.emoji}</Text>
       {shop.open && (
         <View style={styles.openBadge}>
@@ -118,9 +127,23 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     overflow: "hidden",
+    position: "relative",
+  },
+  heroImage: {
+    ...StyleSheet.absoluteFillObject,
   },
   heroEmoji: {
-    fontSize: 80,
+    fontSize: 32,
+    position: "absolute",
+    bottom: 12,
+    right: 12,
+    backgroundColor: "rgba(255,255,255,0.95)",
+    width: 52,
+    height: 52,
+    borderRadius: 26,
+    textAlign: "center",
+    lineHeight: 52,
+    overflow: "hidden",
   },
   openBadge: {
     position: "absolute",
