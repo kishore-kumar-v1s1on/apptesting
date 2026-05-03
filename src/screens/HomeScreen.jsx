@@ -67,7 +67,10 @@ const HomeScreen = () => {
       {/* Fixed Bottom Nav */}
       <BottomNav
         initialTab="Home"
-        onTabChange={(tab) => console.log("Tab changed to", tab)}
+        onTabChange={(tab) => {
+          if (tab === "Cart") router.push("/cart");
+          else console.log("Tab changed to", tab);
+        }}
       />
     </View>
   );

@@ -446,10 +446,27 @@ const PRODUCT_CATEGORY_IMAGE = {
     "https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400&auto=format&fit=crop&q=60",
 };
 
-const withImage = (product) => ({
-  ...product,
-  image: product.image ?? PRODUCT_CATEGORY_IMAGE[product.category],
-});
+// Pulls "5kg" / "1L" / "12pc" / "500g" out of a product name.
+const WEIGHT_RE = /\b\d+(?:\.\d+)?\s*(?:kg|g|l|ml|pc|pcs|dozen)\b/i;
+
+const extractWeight = (name) => {
+  const m = name.match(WEIGHT_RE);
+  return m ? m[0].replace(/\s+/g, " ").trim() : "";
+};
+
+const stripWeight = (name) =>
+  name.replace(WEIGHT_RE, "").replace(/\s{2,}/g, " ").trim();
+
+const withImage = (product) => {
+  const weight = product.weight ?? extractWeight(product.name);
+  const displayName = product.displayName ?? (stripWeight(product.name) || product.name);
+  return {
+    ...product,
+    image: product.image ?? PRODUCT_CATEGORY_IMAGE[product.category],
+    weight,
+    displayName,
+  };
+};
 
 export const getShopById = (id) =>
   NEARBY_SHOPS.find((s) => String(s.id) === String(id));

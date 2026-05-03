@@ -15,12 +15,20 @@ export type CartItem = {
   price: number;
   quantity: number;
   shopId: string;
+  image?: string;
+  weight?: string;
+  discount?: number; // savings per unit (₹)
+  category?: string;
 };
 
 export type CartProduct = {
   id: string;
   name: string;
   price: number;
+  image?: string;
+  weight?: string;
+  discount?: number;
+  category?: string;
 };
 
 type CartContextValue = {
@@ -33,6 +41,7 @@ type CartContextValue = {
   getQuantity: (productId: string) => number;
   count: number;
   total: number;
+  savings: number;
 };
 
 const CartContext = createContext<CartContextValue | undefined>(undefined);
@@ -63,6 +72,10 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
             price: product.price,
             quantity: 1,
             shopId,
+            image: product.image,
+            weight: product.weight,
+            discount: product.discount ?? 0,
+            category: product.category,
           },
         ];
       });
@@ -112,6 +125,11 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
     [items]
   );
 
+  const savings = useMemo<number>(
+    () => items.reduce((s, i) => s + i.quantity * (i.discount ?? 0), 0),
+    [items]
+  );
+
   const value = useMemo<CartContextValue>(
     () => ({
       items,
@@ -123,6 +141,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
       getQuantity,
       count,
       total,
+      savings,
     }),
     [
       items,
@@ -134,6 +153,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
       getQuantity,
       count,
       total,
+      savings,
     ]
   );
 

@@ -227,7 +227,7 @@ const ShopDetailsScreen: React.FC<Props> = ({ shopId }) => {
           <TouchableOpacity
             style={styles.cartBarBtn}
             activeOpacity={0.85}
-            onPress={() => console.log("View Cart")}
+            onPress={() => router.push("/cart")}
           >
             <Text style={styles.cartBarBtnText}>View Cart  ›</Text>
           </TouchableOpacity>

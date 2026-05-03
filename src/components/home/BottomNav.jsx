@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { COLORS, FONTS, FONT_SIZE, SPACING, RADIUS } from '../../constants/theme';
 import { NAV_TABS } from '../../data/mockData';
+import { useCart } from '../../contexts/CartContext';
 
 const NavItem = ({ tab, isActive, onPress }) => (
   <TouchableOpacity style={styles.item} onPress={onPress} activeOpacity={0.7}>
@@ -23,15 +24,21 @@ const NavItem = ({ tab, isActive, onPress }) => (
 
 const BottomNav = ({ initialTab = 'Home', onTabChange }) => {
   const [activeTab, setActiveTab] = useState(initialTab);
+  const { count } = useCart();
 
   const handleTabPress = (tabName) => {
     setActiveTab(tabName);
     onTabChange?.(tabName);
   };
 
+  // Inject live cart count into the Cart tab badge.
+  const tabs = NAV_TABS.map((t) =>
+    t.name === 'Cart' ? { ...t, badge: count > 0 ? count : null } : t
+  );
+
   return (
     <View style={styles.container}>
-      {NAV_TABS.map(tab => (
+      {tabs.map(tab => (
         <NavItem
           key={tab.name}
           tab={tab}

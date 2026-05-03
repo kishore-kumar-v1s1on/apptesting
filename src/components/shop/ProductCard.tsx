@@ -16,6 +16,8 @@ import {
 export type Product = {
   id: string;
   name: string;
+  displayName?: string;
+  weight?: string;
   category: string;
   price: number;
   image?: string;
@@ -106,12 +108,24 @@ const ProductCard: React.FC<Props> = ({ product, shopId }) => {
           style={[styles.addBtn, !inStock && styles.addBtnDisabled]}
           activeOpacity={0.85}
           disabled={!inStock}
-          onPress={() =>
+          onPress={() => {
+            const discount =
+              product.originalPrice && product.originalPrice > product.price
+                ? product.originalPrice - product.price
+                : 0;
             addItem(
-              { id: product.id, name: product.name, price: product.price },
+              {
+                id: product.id,
+                name: product.displayName ?? product.name,
+                price: product.price,
+                image: product.image,
+                weight: product.weight,
+                discount,
+                category: product.category,
+              },
               shopId
-            )
-          }
+            );
+          }}
         >
           <Text
             style={[
