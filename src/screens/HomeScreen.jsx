@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import React, { useState } from "react";
 import { ScrollView, StatusBar, StyleSheet, View } from "react-native";
 
@@ -46,7 +47,7 @@ const HomeScreen = () => {
 
         <FeatureStrip />
 
-        <CategoryList onViewAll={() => console.log("View All Categories")} />
+        <CategoryList onViewAll={() => router.push("/categories")} />
 
         <RecommendedList
           onViewAll={() => console.log("View All Products")}
@@ -55,7 +56,9 @@ const HomeScreen = () => {
 
         <NearbyShops
           onViewAll={() => console.log("View All Shops")}
-          onShopPress={(shop) => console.log("Pressed shop", shop.name)}
+          onShopPress={(shop) =>
+            router.push({ pathname: "/shop/[id]", params: { id: shop.id } })
+          }
         />
 
         <PromoBanner onShopNow={() => console.log("Shop Now pressed")} />
