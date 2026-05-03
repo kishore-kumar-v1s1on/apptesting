@@ -28,7 +28,7 @@ import { CATEGORY_LIST, NEARBY_SHOPS } from "../data/mockData";
 // ── Types ─────────────────────────────────────────────────────────────────────
 
 type Props = {
-  categoryId: string;
+  categoryId?: string;
 };
 
 type QuickFilter = "all" | "open" | "rating4" | "nearest";
@@ -82,10 +82,11 @@ const parseTime = (s: string): number => {
 // ── Screen ────────────────────────────────────────────────────────────────────
 
 const ShopListScreen: React.FC<Props> = ({ categoryId }) => {
-  const category = (CATEGORY_LIST as Category[]).find(
-    (c) => c.id === categoryId
-  );
+  const category = categoryId
+    ? (CATEGORY_LIST as Category[]).find((c) => c.id === categoryId)
+    : null;
   const categoryName = category?.name ?? "All";
+  const headerTitle = category ? `${categoryName} Shops` : "All Shops";
 
   const [query, setQuery] = useState<string>("");
   const [chip, setChip] = useState<QuickFilter>("all");
@@ -94,9 +95,11 @@ const ShopListScreen: React.FC<Props> = ({ categoryId }) => {
 
   // ── Filter + Sort with useMemo ──────────────────────────────────────────────
   const filtered = useMemo<ShopListItem[]>(() => {
-    let list = (NEARBY_SHOPS as ShopListItem[]).filter((s) =>
-      s.categories?.includes(categoryName)
-    );
+    let list = category
+      ? (NEARBY_SHOPS as ShopListItem[]).filter((s) =>
+          s.categories?.includes(categoryName)
+        )
+      : (NEARBY_SHOPS as ShopListItem[]);
 
     // Search by name OR category
     if (query.trim()) {
@@ -131,7 +134,7 @@ const ShopListScreen: React.FC<Props> = ({ categoryId }) => {
     }
 
     return list;
-  }, [categoryName, query, chip, sort]);
+  }, [category, categoryName, query, chip, sort]);
 
   // ── Handlers ────────────────────────────────────────────────────────────────
   const handleBack = useCallback((): void => {
@@ -187,7 +190,7 @@ const ShopListScreen: React.FC<Props> = ({ categoryId }) => {
 
         <View style={styles.titleBlock}>
           <Text style={styles.title} numberOfLines={1}>
-            {categoryName} Shops
+            {headerTitle}
           </Text>
           <Text style={styles.subtitle} numberOfLines={1}>
             Choose a shop to continue

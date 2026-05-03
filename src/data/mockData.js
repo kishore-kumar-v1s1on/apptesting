@@ -225,6 +225,15 @@ export const NAV_TABS = [
   { name: "Shops", emoji: "🏪", badge: null },
 ];
 
+// ─── Checkout : Delivery Address ─────────────────────────────────────────────
+
+export const DELIVERY_ADDRESS = {
+  label: "Home",
+  line1: "12, Sathuvachari Main Road",
+  line2: "Sathuvachari, Vellore, Tamil Nadu — 632009",
+  phone: "+91 98765 43210",
+};
+
 // ─── All Categories Screen ───────────────────────────────────────────────────
 
 export const CATEGORY_LIST = [

@@ -55,7 +55,7 @@ const HomeScreen = () => {
         />
 
         <NearbyShops
-          onViewAll={() => console.log("View All Shops")}
+          onViewAll={() => router.push("/shops")}
           onShopPress={(shop) =>
             router.push({ pathname: "/shop/[id]", params: { id: shop.id } })
           }
@@ -69,6 +69,8 @@ const HomeScreen = () => {
         initialTab="Home"
         onTabChange={(tab) => {
           if (tab === "Cart") router.push("/cart");
+          else if (tab === "Categories") router.push("/categories");
+          else if (tab === "Shops") router.push("/shops");
           else console.log("Tab changed to", tab);
         }}
       />

@@ -12,6 +12,10 @@ import {
 
 import CartItem from "../components/cart/CartItem";
 import {
+  DELIVERY_FEE,
+  FREE_DELIVERY_THRESHOLD,
+} from "../constants/pricing";
+import {
   COLORS,
   FONTS,
   FONT_SIZE,
@@ -23,11 +27,6 @@ import {
   type CartItem as CartItemData,
 } from "../contexts/CartContext";
 import { getShopById } from "../data/mockData";
-
-// ── Constants ─────────────────────────────────────────────────────────────────
-
-const FREE_DELIVERY_THRESHOLD = 199;
-const DELIVERY_FEE = 20;
 
 type Shop = {
   id: string;
@@ -102,8 +101,8 @@ const CartScreen: React.FC = () => {
   }, [clearCart]);
 
   const handleCheckout = useCallback((): void => {
-    Alert.alert("Checkout", `Proceeding to pay ₹${toPay}`);
-  }, [toPay]);
+    router.push("/checkout");
+  }, []);
 
   // ── Empty state ─────────────────────────────────────────────────────────────
   if (items.length === 0) {
