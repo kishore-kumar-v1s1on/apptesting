@@ -225,6 +225,129 @@ export const NAV_TABS = [
   { name: "Shops", emoji: "🏪", badge: null },
 ];
 
+// ─── Orders : Mock History ───────────────────────────────────────────────────
+
+const NOW = Date.now();
+const HOUR = 3600000;
+const DAY = 86400000;
+
+export const MOCK_PAST_ORDERS = [
+  {
+    id: "KKS-432109",
+    shopId: "9",
+    shopName: "Hot Bake Bakery",
+    items: [
+      {
+        productId: "p29",
+        name: "Biscuits Pack",
+        quantity: 3,
+        price: 30,
+        weight: "",
+        image:
+          "https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=400&auto=format&fit=crop&q=60",
+      },
+      {
+        productId: "p30",
+        name: "Chocolate Bar",
+        quantity: 2,
+        price: 50,
+        weight: "",
+        image:
+          "https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=400&auto=format&fit=crop&q=60",
+      },
+    ],
+    itemsTotal: 190,
+    deliveryFee: 0,
+    handlingCharge: 10,
+    total: 200,
+    savings: 5,
+    deliveryType: "delivery",
+    paymentMethod: "upi",
+    status: "out_for_delivery",
+    placedAt: NOW - HOUR * 2,
+    eta: "Arriving in ~10 mins",
+  },
+  {
+    id: "KKS-784521",
+    shopId: "1",
+    shopName: "Sakthi Grocery",
+    items: [
+      {
+        productId: "p1",
+        name: "Basmati Rice",
+        quantity: 1,
+        price: 540,
+        weight: "5 kg",
+        image:
+          "https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&auto=format&fit=crop&q=60",
+      },
+      {
+        productId: "p3",
+        name: "Sugar",
+        quantity: 2,
+        price: 48,
+        weight: "1 kg",
+        image:
+          "https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&auto=format&fit=crop&q=60",
+      },
+    ],
+    itemsTotal: 636,
+    deliveryFee: 0,
+    handlingCharge: 10,
+    total: 646,
+    savings: 60,
+    deliveryType: "delivery",
+    paymentMethod: "upi",
+    status: "delivered",
+    placedAt: NOW - DAY * 2,
+    eta: "Delivered",
+  },
+  {
+    id: "KKS-651892",
+    shopId: "2",
+    shopName: "Fresh Veg Shop",
+    items: [
+      {
+        productId: "p7",
+        name: "Onion",
+        quantity: 1,
+        price: 38,
+        weight: "1 kg",
+        image:
+          "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&auto=format&fit=crop&q=60",
+      },
+      {
+        productId: "p8",
+        name: "Tomato",
+        quantity: 1,
+        price: 32,
+        weight: "1 kg",
+        image:
+          "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&auto=format&fit=crop&q=60",
+      },
+      {
+        productId: "p13",
+        name: "Apple",
+        quantity: 1,
+        price: 180,
+        weight: "1 kg",
+        image:
+          "https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=400&auto=format&fit=crop&q=60",
+      },
+    ],
+    itemsTotal: 250,
+    deliveryFee: 0,
+    handlingCharge: 10,
+    total: 260,
+    savings: 32,
+    deliveryType: "pickup",
+    paymentMethod: "cod",
+    status: "delivered",
+    placedAt: NOW - DAY * 5,
+    eta: "Picked up",
+  },
+];
+
 // ─── Checkout : Delivery Address ─────────────────────────────────────────────
 
 export const DELIVERY_ADDRESS = {

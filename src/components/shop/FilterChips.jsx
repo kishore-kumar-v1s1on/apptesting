@@ -26,6 +26,7 @@ const FilterChips = ({ data, selectedId, onChange }) => (
     horizontal
     keyExtractor={(item) => item.id}
     showsHorizontalScrollIndicator={false}
+    style={styles.scroll}
     contentContainerStyle={styles.list}
     renderItem={({ item }) => (
       <Chip
@@ -38,18 +39,23 @@ const FilterChips = ({ data, selectedId, onChange }) => (
 );
 
 const styles = StyleSheet.create({
+  scroll: {
+    flexGrow: 0,
+    marginTop: SPACING.md,
+  },
   list: {
     paddingHorizontal: SPACING.lg,
-    paddingTop: SPACING.md,
-    gap: SPACING.sm,
+    paddingVertical: 6,
+    alignItems: 'center',
   },
   chip: {
     paddingHorizontal: SPACING.lg,
-    paddingVertical: SPACING.sm,
+    paddingVertical: 10,
     borderRadius: RADIUS.round,
     borderWidth: 1.5,
     borderColor: COLORS.border,
     backgroundColor: COLORS.white,
+    marginRight: SPACING.sm,
   },
   chipSelected: {
     backgroundColor: COLORS.primaryLight,
@@ -57,8 +63,10 @@ const styles = StyleSheet.create({
   },
   chipText: {
     fontSize: FONT_SIZE.lg,
+    lineHeight: 18,
     color: COLORS.dark,
     fontWeight: FONTS.semiBold,
+    includeFontPadding: false,
   },
   chipTextSelected: {
     color: COLORS.primary,

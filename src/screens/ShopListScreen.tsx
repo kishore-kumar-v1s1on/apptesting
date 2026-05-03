@@ -229,6 +229,7 @@ const ShopListScreen: React.FC<Props> = ({ categoryId }) => {
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
+        style={styles.chipsScroll}
         contentContainerStyle={styles.chipsRow}
       >
         {QUICK_FILTERS.map((c) => {
@@ -402,18 +403,23 @@ const styles = StyleSheet.create({
   },
 
   // Chips
+  chipsScroll: {
+    flexGrow: 0,
+    marginTop: SPACING.md,
+  },
   chipsRow: {
     paddingHorizontal: SPACING.lg,
-    paddingTop: SPACING.md,
-    gap: SPACING.sm,
+    paddingVertical: 6,
+    alignItems: "center",
   },
   chip: {
     paddingHorizontal: SPACING.lg,
-    paddingVertical: SPACING.sm,
+    paddingVertical: 10,
     borderRadius: RADIUS.round,
     borderWidth: 1.5,
     borderColor: COLORS.border,
     backgroundColor: COLORS.white,
+    marginRight: SPACING.sm,
   },
   chipSelected: {
     backgroundColor: COLORS.primaryLight,
@@ -421,8 +427,10 @@ const styles = StyleSheet.create({
   },
   chipText: {
     fontSize: FONT_SIZE.lg,
+    lineHeight: 18,
     color: COLORS.dark,
     fontWeight: FONTS.semiBold,
+    includeFontPadding: false,
   },
   chipTextSelected: {
     color: COLORS.primary,
@@ -431,22 +439,27 @@ const styles = StyleSheet.create({
   filterBtn: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 4,
     paddingHorizontal: SPACING.lg,
-    paddingVertical: SPACING.sm,
+    paddingVertical: 10,
     borderRadius: RADIUS.round,
     borderWidth: 1.5,
     borderColor: COLORS.dark,
     backgroundColor: COLORS.dark,
+    marginRight: SPACING.sm,
   },
   filterIcon: {
     fontSize: FONT_SIZE.xl,
+    lineHeight: 20,
     color: COLORS.white,
+    marginRight: 4,
+    includeFontPadding: false,
   },
   filterText: {
     fontSize: FONT_SIZE.lg,
+    lineHeight: 18,
     color: COLORS.white,
     fontWeight: FONTS.bold,
+    includeFontPadding: false,
   },
 
   // Meta bar

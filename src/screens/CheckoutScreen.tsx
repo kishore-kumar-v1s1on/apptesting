@@ -28,6 +28,11 @@ import {
   HANDLING_CHARGE,
 } from "../constants/pricing";
 import { useCart } from "../contexts/CartContext";
+import {
+  useOrders,
+  type Order,
+  type OrderLineItem,
+} from "../contexts/OrdersContext";
 import { DELIVERY_ADDRESS, getShopById } from "../data/mockData";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -51,8 +56,14 @@ type CartSummary = {
 
 // ── Screen ────────────────────────────────────────────────────────────────────
 
+const generateOrderId = (): string => {
+  const random = Math.floor(100000 + Math.random() * 900000);
+  return `KKS-${random}`;
+};
+
 const CheckoutScreen: React.FC = () => {
   const { items, total: itemsTotal, savings, clearCart } = useCart();
+  const { addOrder } = useOrders();
 
   const [deliveryType, setDeliveryType] = useState<DeliveryType>("delivery");
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("upi");
@@ -91,18 +102,59 @@ const CheckoutScreen: React.FC = () => {
   }, []);
 
   const handlePlaceOrder = useCallback((): void => {
-    // Navigate first so the screen unmounts before clearing
+    const orderId = generateOrderId();
+    const orderItems: OrderLineItem[] = items.map((i) => ({
+      productId: i.productId,
+      name: i.name,
+      quantity: i.quantity,
+      price: i.price,
+      weight: i.weight,
+      image: i.image,
+    }));
+
+    const order: Order = {
+      id: orderId,
+      shopId: shop?.id ?? items[0]?.shopId ?? "1",
+      shopName: shop?.name ?? "Shop",
+      items: orderItems,
+      itemsTotal: summary.itemsTotal,
+      deliveryFee: summary.deliveryFee,
+      handlingCharge: summary.handlingCharge,
+      total: summary.total,
+      savings: summary.savings,
+      deliveryType,
+      paymentMethod,
+      status: "placed",
+      placedAt: Date.now(),
+      eta:
+        deliveryType === "pickup"
+          ? "Ready in ~15 mins"
+          : "Arriving in ~25 mins",
+    };
+
+    addOrder(order);
+
+    // Navigate first so this screen unmounts before clearing
     // (otherwise the empty-cart redirect could flash through).
     router.replace({
       pathname: "/order-success",
       params: {
+        id: orderId,
         total: String(summary.total),
         deliveryType,
         paymentMethod,
       },
     });
     clearCart();
-  }, [summary.total, deliveryType, paymentMethod, clearCart]);
+  }, [
+    items,
+    shop,
+    summary,
+    deliveryType,
+    paymentMethod,
+    addOrder,
+    clearCart,
+  ]);
 
   // ── Empty cart guard ────────────────────────────────────────────────────────
   if (items.length === 0) {

@@ -18,7 +18,7 @@ import {
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-const generateOrderId = (): string => {
+const fallbackOrderId = (): string => {
   const random = Math.floor(100000 + Math.random() * 900000);
   return `KKS-${random}`;
 };
@@ -27,12 +27,16 @@ const generateOrderId = (): string => {
 
 const OrderSuccessScreen: React.FC = () => {
   const params = useLocalSearchParams<{
+    id?: string;
     total?: string;
     deliveryType?: string;
     paymentMethod?: string;
   }>();
 
-  const orderId = useMemo<string>(() => generateOrderId(), []);
+  const orderId = useMemo<string>(
+    () => params.id ?? fallbackOrderId(),
+    [params.id]
+  );
   const total = params.total ?? "0";
   const isPickup = params.deliveryType === "pickup";
   const isCod = params.paymentMethod === "cod";
@@ -43,7 +47,10 @@ const OrderSuccessScreen: React.FC = () => {
   };
 
   const handleTrack = (): void => {
-    console.log("Track order:", orderId);
+    router.replace({
+      pathname: "/orders/[id]",
+      params: { id: orderId },
+    });
   };
 
   return (

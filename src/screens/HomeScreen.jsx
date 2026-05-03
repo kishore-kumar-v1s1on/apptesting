@@ -71,6 +71,7 @@ const HomeScreen = () => {
           if (tab === "Cart") router.push("/cart");
           else if (tab === "Categories") router.push("/categories");
           else if (tab === "Shops") router.push("/shops");
+          else if (tab === "Orders") router.push("/orders");
           else console.log("Tab changed to", tab);
         }}
       />
