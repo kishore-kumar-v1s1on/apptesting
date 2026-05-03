@@ -7,7 +7,9 @@ import {
   COLORS,
   FONTS,
   FONT_SIZE,
+  PRESS,
   RADIUS,
+  SHADOWS,
   SPACING,
 } from "../../constants/theme";
 
@@ -166,22 +168,21 @@ const ProductCard: React.FC<Props> = ({ product, shopId }) => {
 const styles = StyleSheet.create({
   card: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    borderRadius: RADIUS.lg,
+    borderRadius: RADIUS.xl,
     padding: SPACING.md,
     backgroundColor: COLORS.white,
     marginBottom: SPACING.md,
+    ...SHADOWS.sm,
   },
 
   // Image
   imageBox: {
-    height: 100,
+    height: 110,
     backgroundColor: COLORS.grayLight,
-    borderRadius: RADIUS.md,
+    borderRadius: RADIUS.lg,
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: SPACING.sm,
+    marginBottom: SPACING.md,
     position: "relative",
     overflow: "hidden",
   },
@@ -197,16 +198,19 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 6,
     left: 6,
-    backgroundColor: COLORS.primaryMid,
+    backgroundColor: COLORS.primary,
     borderRadius: RADIUS.sm,
     paddingHorizontal: 6,
-    paddingVertical: 2,
+    paddingVertical: 3,
     zIndex: 2,
   },
   badgeText: {
     color: COLORS.white,
-    fontSize: FONT_SIZE.sm,
-    fontWeight: FONTS.bold,
+    fontSize: 10,
+    fontWeight: FONTS.extraBold,
+    letterSpacing: 0.2,
+    lineHeight: 12,
+    includeFontPadding: false,
   },
   oosOverlay: {
     ...StyleSheet.absoluteFillObject,
@@ -223,18 +227,20 @@ const styles = StyleSheet.create({
 
   // Text
   category: {
-    fontSize: FONT_SIZE.md,
+    fontSize: FONT_SIZE.sm,
     color: COLORS.gray,
-    fontWeight: FONTS.medium,
-    textTransform: "capitalize",
-    marginBottom: 2,
+    fontWeight: FONTS.semiBold,
+    textTransform: "uppercase",
+    letterSpacing: 0.4,
+    marginBottom: 4,
   },
   name: {
-    fontSize: FONT_SIZE.lg,
+    fontSize: FONT_SIZE.base,
     fontWeight: FONTS.bold,
     color: COLORS.dark,
     marginBottom: 4,
-    minHeight: 36,
+    minHeight: 38,
+    lineHeight: 18,
   },
   metaRow: {
     flexDirection: "row",
@@ -249,10 +255,10 @@ const styles = StyleSheet.create({
   rating: {
     fontSize: FONT_SIZE.base,
     color: COLORS.dark,
-    fontWeight: FONTS.semiBold,
+    fontWeight: FONTS.bold,
   },
   reviews: {
-    fontSize: FONT_SIZE.md,
+    fontSize: FONT_SIZE.sm,
     color: COLORS.gray,
   },
 
@@ -260,26 +266,29 @@ const styles = StyleSheet.create({
   priceRow: {
     flexDirection: "row",
     alignItems: "baseline",
-    gap: SPACING.sm,
+    gap: 6,
     marginBottom: SPACING.sm,
   },
   price: {
-    fontSize: FONT_SIZE["3xl"],
+    fontSize: FONT_SIZE.xl,
     fontWeight: FONTS.extraBold,
     color: COLORS.dark,
+    letterSpacing: -0.3,
   },
   originalPrice: {
-    fontSize: FONT_SIZE.base,
+    fontSize: FONT_SIZE.sm,
     color: COLORS.gray,
     textDecorationLine: "line-through",
+    fontWeight: FONTS.medium,
   },
 
   // Add button
   addBtn: {
     borderWidth: 1.5,
     borderColor: COLORS.primary,
+    backgroundColor: COLORS.primaryLight,
     borderRadius: RADIUS.md,
-    paddingVertical: 8,
+    paddingVertical: 9,
     alignItems: "center",
   },
   addBtnDisabled: {
@@ -288,8 +297,9 @@ const styles = StyleSheet.create({
   },
   addBtnText: {
     color: COLORS.primary,
-    fontWeight: FONTS.bold,
-    fontSize: FONT_SIZE.lg,
+    fontWeight: FONTS.extraBold,
+    fontSize: FONT_SIZE.base,
+    letterSpacing: 0.3,
   },
   addBtnTextDisabled: {
     color: COLORS.gray,
@@ -302,12 +312,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor: COLORS.primary,
     borderRadius: RADIUS.md,
-    paddingHorizontal: SPACING.md,
-    paddingVertical: 6,
+    paddingHorizontal: SPACING.sm,
+    paddingVertical: 4,
+    ...SHADOWS.sm,
   },
   qtyBtn: {
-    width: 28,
-    height: 28,
+    width: 32,
+    height: 32,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -316,11 +327,12 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: FONTS.bold,
     lineHeight: 24,
+    includeFontPadding: false,
   },
   qtyValue: {
     color: COLORS.white,
-    fontSize: FONT_SIZE.xl,
-    fontWeight: FONTS.bold,
+    fontSize: FONT_SIZE.lg,
+    fontWeight: FONTS.extraBold,
     minWidth: 24,
     textAlign: "center",
   },

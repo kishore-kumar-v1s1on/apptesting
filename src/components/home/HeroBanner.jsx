@@ -4,7 +4,9 @@ import {
   COLORS,
   FONTS,
   FONT_SIZE,
+  PRESS,
   RADIUS,
+  SHADOWS,
   SPACING,
 } from "../../constants/theme";
 
@@ -20,9 +22,9 @@ const HeroBanner = ({ onCtaPress }) => (
       <TouchableOpacity
         style={styles.ctaButton}
         onPress={onCtaPress}
-        activeOpacity={0.85}
+        activeOpacity={PRESS.opacity}
       >
-        <Text style={styles.ctaText}>Click here for kicha ›</Text>
+        <Text style={styles.ctaText}>Click here  ›</Text>
       </TouchableOpacity>
     </View>
 
@@ -51,7 +53,7 @@ const HeroBanner = ({ onCtaPress }) => (
 const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.primaryLight,
-    borderRadius: RADIUS.xl,
+    borderRadius: RADIUS.xxl,
     padding: SPACING.xl,
     paddingBottom: 36,
     flexDirection: "row",
@@ -59,7 +61,9 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     position: "relative",
     marginHorizontal: SPACING.lg,
+    marginTop: SPACING.md,
     marginBottom: SPACING.md,
+    ...SHADOWS.sm,
   },
   content: {
     flex: 1,
@@ -86,15 +90,17 @@ const styles = StyleSheet.create({
   ctaButton: {
     marginTop: SPACING.lg,
     backgroundColor: COLORS.primary,
-    borderRadius: SPACING.md - 2,
-    paddingVertical: SPACING.md - 2,
-    paddingHorizontal: SPACING.xl,
+    borderRadius: RADIUS.md,
+    paddingVertical: 10,
+    paddingHorizontal: SPACING.lg,
     alignSelf: "flex-start",
+    ...SHADOWS.sm,
   },
   ctaText: {
     color: COLORS.white,
-    fontWeight: FONTS.bold,
-    fontSize: FONT_SIZE.xl,
+    fontWeight: FONTS.extraBold,
+    fontSize: FONT_SIZE.base,
+    letterSpacing: 0.3,
   },
   imageArea: {
     alignItems: "center",

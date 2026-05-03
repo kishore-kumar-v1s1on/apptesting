@@ -1,7 +1,7 @@
 // ─── KKSly Mock Data ─────────────────────────────────────────────────────────
 
 export const CATEGORIES = [
-  { id: "1", name: "Grocery.", emoji: "🛒", isDots: false },
+  { id: "1", name: "Grocery", emoji: "🛒", isDots: false },
   { id: "2", name: "Vegetables", emoji: "🥦", isDots: false },
   { id: "3", name: "Fruits", emoji: "🍎", isDots: false },
   { id: "4", name: "Dairy", emoji: "🥛", isDots: false },

@@ -1,32 +1,55 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
-import { COLORS, FONTS, FONT_SIZE, SPACING, RADIUS } from '../../constants/theme';
+import { COLORS, FONTS, FONT_SIZE, SPACING, RADIUS, SHADOWS, PRESS } from '../../constants/theme';
 import SectionHeader from '../common/SectionHeader';
 import { CATEGORIES } from '../../data/mockData';
 
+const isControlled = (val) => val !== undefined;
+
 const CategoryItem = ({ item, isSelected, onPress }) => (
   <TouchableOpacity
-    style={[styles.item, isSelected && styles.itemSelected]}
+    style={styles.item}
     onPress={onPress}
-    activeOpacity={0.75}
+    activeOpacity={PRESS.opacity}
   >
-    {item.isDots ? (
-      <View style={styles.dotsGrid}>
-        {[0, 1, 2, 3].map(i => (
-          <View key={i} style={styles.dotCircle} />
-        ))}
-      </View>
-    ) : (
-      <Text style={styles.emoji}>{item.emoji}</Text>
-    )}
-    <Text style={[styles.name, isSelected && styles.nameSelected]}>
+    <View style={[styles.iconBox, isSelected && styles.iconBoxSelected]}>
+      {item.isDots ? (
+        <View style={styles.dotsGrid}>
+          {[0, 1, 2, 3].map(i => (
+            <View key={i} style={styles.dotCircle} />
+          ))}
+        </View>
+      ) : (
+        <Text style={styles.emoji}>{item.emoji}</Text>
+      )}
+    </View>
+    <Text style={[styles.name, isSelected && styles.nameSelected]} numberOfLines={1}>
       {item.name}
     </Text>
   </TouchableOpacity>
 );
 
-const CategoryList = ({ onViewAll }) => {
-  const [selectedId, setSelectedId] = useState('1');
+const CategoryList = ({
+  selectedId: selectedIdProp,
+  onSelectCategory,
+  onMore,
+  onViewAll,
+}) => {
+  const [internalId, setInternalId] = useState(null);
+  const selectedId = isControlled(selectedIdProp) ? selectedIdProp : internalId;
+
+  const handlePress = (cat) => {
+    if (cat.isDots) {
+      onMore?.();
+      return;
+    }
+    if (isControlled(selectedIdProp)) {
+      onSelectCategory?.(cat);
+    } else {
+      setInternalId((prev) => (prev === cat.id ? null : cat.id));
+      onSelectCategory?.(cat);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -41,7 +64,7 @@ const CategoryList = ({ onViewAll }) => {
             key={cat.id}
             item={cat}
             isSelected={selectedId === cat.id}
-            onPress={() => setSelectedId(cat.id)}
+            onPress={() => handlePress(cat)}
           />
         ))}
       </ScrollView>
@@ -55,48 +78,54 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.lg,
   },
   scrollContent: {
-    paddingBottom: SPACING.xs,
+    paddingTop: 6,
+    paddingBottom: 6,
+    paddingRight: SPACING.lg,
   },
   item: {
     alignItems: 'center',
-    justifyContent: 'center',
-    width: 80,
-    height: 88,
-    borderRadius: RADIUS.lg,
-    borderWidth: 1.5,
-    borderColor: COLORS.border,
-    marginRight: SPACING.md - 2,
-    backgroundColor: COLORS.white,
-    gap: 6,
+    width: 76,
+    marginRight: SPACING.md,
   },
-  itemSelected: {
-    borderColor: COLORS.primary,
+  iconBox: {
+    width: 64,
+    height: 64,
+    borderRadius: RADIUS.xl,
     backgroundColor: COLORS.primaryLight,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 8,
+    ...SHADOWS.sm,
+  },
+  iconBoxSelected: {
+    backgroundColor: COLORS.primary,
   },
   emoji: {
-    fontSize: 32,
+    fontSize: 30,
   },
   name: {
-    fontSize: FONT_SIZE.base,
+    fontSize: FONT_SIZE.sm,
     fontWeight: FONTS.semiBold,
     color: COLORS.dark,
     textAlign: 'center',
+    width: '100%',
   },
   nameSelected: {
     color: COLORS.primary,
+    fontWeight: FONTS.bold,
   },
   dotsGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    width: 32,
-    height: 32,
-    gap: 5,
+    width: 28,
+    height: 28,
+    gap: 4,
     alignItems: 'center',
     justifyContent: 'center',
   },
   dotCircle: {
-    width: 11,
-    height: 11,
+    width: 10,
+    height: 10,
     borderRadius: RADIUS.round,
     backgroundColor: COLORS.primary,
   },

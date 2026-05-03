@@ -1,48 +1,58 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { COLORS, FONTS, FONT_SIZE, SPACING, RADIUS } from '../../constants/theme';
+import { COLORS, FONTS, FONT_SIZE, SPACING, RADIUS, SHADOWS, PRESS } from '../../constants/theme';
 
 const SearchBar = ({ value, onChangeText, onMicPress }) => (
-  <View style={styles.container}>
-    <Text style={styles.searchIcon}>🔍</Text>
-    <TextInput
-      style={styles.input}
-      value={value}
-      onChangeText={onChangeText}
-      placeholder='Search "Onion, Milk, Rice..."'
-      placeholderTextColor="#aaa"
-    />
-    <TouchableOpacity onPress={onMicPress} activeOpacity={0.7}>
-      <Text style={styles.micIcon}>🎤</Text>
-    </TouchableOpacity>
+  <View style={styles.wrap}>
+    <View style={styles.container}>
+      <Text style={styles.searchIcon}>🔍</Text>
+      <TextInput
+        style={styles.input}
+        value={value}
+        onChangeText={onChangeText}
+        placeholder='Search "Onion, Milk, Rice..."'
+        placeholderTextColor="#9CA3AF"
+      />
+      <View style={styles.divider} />
+      <TouchableOpacity onPress={onMicPress} activeOpacity={PRESS.opacity} hitSlop={6}>
+        <Text style={styles.micIcon}>🎤</Text>
+      </TouchableOpacity>
+    </View>
   </View>
 );
 
 const styles = StyleSheet.create({
+  wrap: {
+    paddingHorizontal: SPACING.lg,
+    paddingBottom: SPACING.md,
+    backgroundColor: COLORS.white,
+  },
   container: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: COLORS.grayLight,
     borderRadius: RADIUS.lg,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    paddingHorizontal: SPACING.lg - 2,
-    paddingVertical: SPACING.md - 1,
+    paddingHorizontal: SPACING.md,
+    paddingVertical: 10,
     gap: SPACING.sm,
-    marginHorizontal: SPACING.lg,
-    marginBottom: SPACING.md,
   },
   searchIcon: {
-    fontSize: FONT_SIZE['2xl'],
+    fontSize: 16,
   },
   input: {
     flex: 1,
     fontSize: FONT_SIZE.lg,
     color: COLORS.dark,
     paddingVertical: 0,
+    fontWeight: FONTS.medium,
+  },
+  divider: {
+    width: 1,
+    height: 18,
+    backgroundColor: COLORS.border,
   },
   micIcon: {
-    fontSize: FONT_SIZE['2xl'],
+    fontSize: 16,
   },
 });
 

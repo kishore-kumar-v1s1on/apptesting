@@ -5,7 +5,9 @@ import {
   COLORS,
   FONTS,
   FONT_SIZE,
+  PRESS,
   RADIUS,
+  SHADOWS,
   SPACING,
 } from "../../constants/theme";
 
@@ -32,7 +34,7 @@ const PaymentOption: React.FC<Props> = ({
 }) => (
   <TouchableOpacity
     style={[styles.card, selected && styles.cardSelected]}
-    activeOpacity={0.85}
+    activeOpacity={PRESS.opacity}
     onPress={onSelect}
   >
     <View style={styles.headerRow}>
@@ -63,11 +65,12 @@ const PaymentOption: React.FC<Props> = ({
 const styles = StyleSheet.create({
   card: {
     backgroundColor: COLORS.white,
-    borderRadius: RADIUS.lg,
+    borderRadius: RADIUS.xl,
     borderWidth: 1.5,
     borderColor: COLORS.border,
     padding: SPACING.md,
     marginBottom: SPACING.sm,
+    ...SHADOWS.sm,
   },
   cardSelected: {
     borderColor: COLORS.primary,

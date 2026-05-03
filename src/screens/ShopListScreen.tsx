@@ -82,8 +82,14 @@ const parseTime = (s: string): number => {
 // ── Screen ────────────────────────────────────────────────────────────────────
 
 const ShopListScreen: React.FC<Props> = ({ categoryId }) => {
-  const category = categoryId
-    ? (CATEGORY_LIST as Category[]).find((c) => c.id === categoryId)
+  // Active category lives in local state (initialised from the route prop)
+  // so the in-screen chip strip can switch categories without navigating away.
+  const [activeCategoryId, setActiveCategoryId] = useState<string | undefined>(
+    categoryId
+  );
+
+  const category = activeCategoryId
+    ? (CATEGORY_LIST as Category[]).find((c) => c.id === activeCategoryId)
     : null;
   const categoryName = category?.name ?? "All";
   const headerTitle = category ? `${categoryName} Shops` : "All Shops";
@@ -224,6 +230,55 @@ const ShopListScreen: React.FC<Props> = ({ categoryId }) => {
         onChangeText={setQuery}
         placeholder="Search shops or products"
       />
+
+      {/* Browse by category */}
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={styles.categoryScroll}
+        contentContainerStyle={styles.categoryRow}
+      >
+        <TouchableOpacity
+          onPress={() => setActiveCategoryId(undefined)}
+          style={[
+            styles.categoryChip,
+            !activeCategoryId && styles.categoryChipSelected,
+          ]}
+          activeOpacity={0.8}
+        >
+          <Text
+            style={[
+              styles.categoryChipText,
+              !activeCategoryId && styles.categoryChipTextSelected,
+            ]}
+          >
+            All
+          </Text>
+        </TouchableOpacity>
+        {(CATEGORY_LIST as Category[]).map((c) => {
+          const selected = activeCategoryId === c.id;
+          return (
+            <TouchableOpacity
+              key={c.id}
+              onPress={() => setActiveCategoryId(selected ? undefined : c.id)}
+              style={[
+                styles.categoryChip,
+                selected && styles.categoryChipSelected,
+              ]}
+              activeOpacity={0.8}
+            >
+              <Text
+                style={[
+                  styles.categoryChipText,
+                  selected && styles.categoryChipTextSelected,
+                ]}
+              >
+                {c.name}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
+      </ScrollView>
 
       {/* Filter chips */}
       <ScrollView
@@ -402,10 +457,42 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.base,
   },
 
-  // Chips
-  chipsScroll: {
+  // Browse-by-category chips
+  categoryScroll: {
     flexGrow: 0,
     marginTop: SPACING.md,
+  },
+  categoryRow: {
+    paddingHorizontal: SPACING.lg,
+    paddingVertical: 6,
+    alignItems: "center",
+  },
+  categoryChip: {
+    paddingHorizontal: SPACING.md,
+    paddingVertical: 8,
+    borderRadius: RADIUS.round,
+    backgroundColor: COLORS.grayLight,
+    marginRight: SPACING.sm,
+  },
+  categoryChipSelected: {
+    backgroundColor: COLORS.primary,
+  },
+  categoryChipText: {
+    fontSize: FONT_SIZE.base,
+    lineHeight: 16,
+    color: COLORS.dark,
+    fontWeight: FONTS.semiBold,
+    includeFontPadding: false,
+  },
+  categoryChipTextSelected: {
+    color: COLORS.white,
+    fontWeight: FONTS.bold,
+  },
+
+  // Quick-filter chips (Open Now / Rating 4+ / Nearest / Filter)
+  chipsScroll: {
+    flexGrow: 0,
+    marginTop: SPACING.sm,
   },
   chipsRow: {
     paddingHorizontal: SPACING.lg,

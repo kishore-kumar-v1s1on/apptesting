@@ -5,7 +5,9 @@ import {
   COLORS,
   FONTS,
   FONT_SIZE,
+  PRESS,
   RADIUS,
+  SHADOWS,
   SPACING,
 } from "../../constants/theme";
 
@@ -30,7 +32,7 @@ const DeliveryOption: React.FC<Props> = ({
 }) => (
   <TouchableOpacity
     style={[styles.card, selected && styles.cardSelected]}
-    activeOpacity={0.85}
+    activeOpacity={PRESS.opacity}
     onPress={onSelect}
   >
     <View
@@ -60,11 +62,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: SPACING.md,
     backgroundColor: COLORS.white,
-    borderRadius: RADIUS.lg,
+    borderRadius: RADIUS.xl,
     borderWidth: 1.5,
     borderColor: COLORS.border,
     padding: SPACING.md,
     marginBottom: SPACING.sm,
+    ...SHADOWS.sm,
   },
   cardSelected: {
     borderColor: COLORS.primary,

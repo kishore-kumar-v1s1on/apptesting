@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { COLORS, FONTS, FONT_SIZE, SPACING, RADIUS } from '../../constants/theme';
+import { COLORS, FONTS, FONT_SIZE, SPACING, RADIUS, SHADOWS, PRESS } from '../../constants/theme';
 
 const Header = ({ notificationCount = 3, onBellPress, onAvatarPress }) => (
   <View style={styles.container}>
@@ -14,7 +14,11 @@ const Header = ({ notificationCount = 3, onBellPress, onAvatarPress }) => (
 
     {/* Right Actions */}
     <View style={styles.rightRow}>
-      <TouchableOpacity style={styles.bellWrap} onPress={onBellPress} activeOpacity={0.7}>
+      <TouchableOpacity
+        style={styles.iconBtn}
+        onPress={onBellPress}
+        activeOpacity={PRESS.opacity}
+      >
         <Text style={styles.bellIcon}>🔔</Text>
         {notificationCount > 0 && (
           <View style={styles.badge}>
@@ -23,7 +27,11 @@ const Header = ({ notificationCount = 3, onBellPress, onAvatarPress }) => (
         )}
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.avatar} onPress={onAvatarPress} activeOpacity={0.8}>
+      <TouchableOpacity
+        style={styles.avatar}
+        onPress={onAvatarPress}
+        activeOpacity={PRESS.opacity}
+      >
         <Text style={styles.avatarEmoji}>👤</Text>
       </TouchableOpacity>
     </View>
@@ -36,48 +44,57 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: SPACING.lg,
-    paddingTop: 48,
-    paddingBottom: SPACING.sm,
+    paddingTop: 52,
+    paddingBottom: SPACING.md,
     backgroundColor: COLORS.white,
   },
   logoRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: SPACING.sm - 1,
+    gap: SPACING.sm,
   },
   logoIcon: {
-    width: 36,
-    height: 36,
-    borderRadius: RADIUS.md,
+    width: 40,
+    height: 40,
+    borderRadius: RADIUS.lg,
     backgroundColor: COLORS.primary,
     alignItems: 'center',
     justifyContent: 'center',
+    ...SHADOWS.sm,
   },
   logoEmoji: {
-    fontSize: 18,
+    fontSize: 20,
     color: COLORS.white,
   },
   logoText: {
-    fontSize: FONT_SIZE['6xl'],
+    fontSize: FONT_SIZE['4xl'],
     fontWeight: FONTS.extraBold,
     color: COLORS.primary,
     letterSpacing: -0.5,
+    lineHeight: 28,
+    includeFontPadding: false,
   },
   rightRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: SPACING.md,
+    gap: SPACING.sm,
   },
-  bellWrap: {
+  iconBtn: {
+    width: 40,
+    height: 40,
+    borderRadius: RADIUS.round,
+    backgroundColor: COLORS.grayLight,
+    alignItems: 'center',
+    justifyContent: 'center',
     position: 'relative',
   },
   bellIcon: {
-    fontSize: 22,
+    fontSize: 18,
   },
   badge: {
     position: 'absolute',
-    top: -4,
-    right: -4,
+    top: 4,
+    right: 4,
     backgroundColor: COLORS.danger,
     borderRadius: RADIUS.round,
     minWidth: 16,
@@ -85,19 +102,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 3,
+    borderWidth: 2,
+    borderColor: COLORS.grayLight,
   },
   badgeText: {
     color: COLORS.white,
-    fontSize: FONT_SIZE.xs,
+    fontSize: 9,
     fontWeight: FONTS.bold,
+    lineHeight: 11,
+    includeFontPadding: false,
   },
   avatar: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
-    backgroundColor: '#f0f0f0',
-    borderWidth: 2,
-    borderColor: COLORS.primary,
+    width: 40,
+    height: 40,
+    borderRadius: RADIUS.round,
+    backgroundColor: COLORS.primaryLight,
     alignItems: 'center',
     justifyContent: 'center',
   },

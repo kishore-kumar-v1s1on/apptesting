@@ -6,6 +6,7 @@ import {
   FONTS,
   FONT_SIZE,
   RADIUS,
+  SHADOWS,
   SPACING,
 } from "../../constants/theme";
 
@@ -128,22 +129,16 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: "row",
     backgroundColor: COLORS.white,
-    borderRadius: RADIUS.xxl,
-    borderWidth: 1,
-    borderColor: COLORS.border,
+    borderRadius: RADIUS.xl,
     padding: SPACING.md,
     marginBottom: SPACING.md,
-    shadowColor: "#000",
-    shadowOpacity: 0.04,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 2 },
-    elevation: 1,
+    ...SHADOWS.sm,
   },
 
   // Image
   imageBox: {
-    width: 96,
-    height: 96,
+    width: 88,
+    height: 88,
     borderRadius: RADIUS.lg,
     overflow: "hidden",
     position: "relative",
@@ -276,18 +271,22 @@ const styles = StyleSheet.create({
     marginTop: SPACING.sm,
     backgroundColor: COLORS.primary,
     borderRadius: RADIUS.md,
-    paddingVertical: 8,
+    paddingVertical: 9,
     alignItems: "center",
+    ...SHADOWS.sm,
   },
   btnDisabled: {
     backgroundColor: COLORS.grayLight,
     borderWidth: 1,
     borderColor: COLORS.border,
+    shadowOpacity: 0,
+    elevation: 0,
   },
   btnText: {
     color: COLORS.white,
-    fontWeight: FONTS.bold,
-    fontSize: FONT_SIZE.lg,
+    fontWeight: FONTS.extraBold,
+    fontSize: FONT_SIZE.base,
+    letterSpacing: 0.3,
   },
   btnTextDisabled: {
     color: COLORS.gray,

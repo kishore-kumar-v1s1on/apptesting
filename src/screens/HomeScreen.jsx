@@ -14,9 +14,34 @@ import RecommendedList from "../components/home/RecommendedList";
 import SearchBar from "../components/home/SearchBar";
 
 import { COLORS } from "../constants/theme";
+import { CATEGORY_LIST } from "../data/mockData";
 
 const HomeScreen = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  // Tap same chip to clear; tap a new chip to switch.
+  const handleSelectCategory = (cat) => {
+    setSelectedCategory((prev) => (prev?.id === cat.id ? null : cat));
+  };
+
+  // Map the home strip's category to the global CATEGORY_LIST id
+  // so /category/[id] resolves correctly.
+  const handleViewAllShops = () => {
+    if (selectedCategory) {
+      const match = CATEGORY_LIST.find(
+        (c) => c.name === selectedCategory.name
+      );
+      if (match) {
+        router.push({
+          pathname: "/category/[id]",
+          params: { id: match.id },
+        });
+        return;
+      }
+    }
+    router.push("/shops");
+  };
 
   return (
     <View style={styles.root}>
@@ -47,7 +72,12 @@ const HomeScreen = () => {
 
         <FeatureStrip />
 
-        <CategoryList onViewAll={() => router.push("/categories")} />
+        <CategoryList
+          selectedId={selectedCategory?.id}
+          onSelectCategory={handleSelectCategory}
+          onMore={() => router.push("/categories")}
+          onViewAll={() => router.push("/categories")}
+        />
 
         <RecommendedList
           onViewAll={() => console.log("View All Products")}
@@ -55,7 +85,8 @@ const HomeScreen = () => {
         />
 
         <NearbyShops
-          onViewAll={() => router.push("/shops")}
+          categoryName={selectedCategory?.name}
+          onViewAll={handleViewAllShops}
           onShopPress={(shop) =>
             router.push({ pathname: "/shop/[id]", params: { id: shop.id } })
           }

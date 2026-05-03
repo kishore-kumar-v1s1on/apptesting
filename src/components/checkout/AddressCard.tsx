@@ -6,6 +6,7 @@ import {
   FONTS,
   FONT_SIZE,
   RADIUS,
+  SHADOWS,
   SPACING,
 } from "../../constants/theme";
 
@@ -60,11 +61,10 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: "row",
     backgroundColor: COLORS.white,
-    borderRadius: RADIUS.lg,
-    borderWidth: 1,
-    borderColor: COLORS.border,
+    borderRadius: RADIUS.xl,
     padding: SPACING.md,
     gap: SPACING.md,
+    ...SHADOWS.sm,
   },
   iconBox: {
     width: 40,

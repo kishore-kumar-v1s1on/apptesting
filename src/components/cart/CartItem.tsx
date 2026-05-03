@@ -6,7 +6,9 @@ import {
   COLORS,
   FONTS,
   FONT_SIZE,
+  PRESS,
   RADIUS,
+  SHADOWS,
   SPACING,
 } from "../../constants/theme";
 import type { CartItem as CartItemData } from "../../contexts/CartContext";
@@ -112,13 +114,12 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     backgroundColor: COLORS.white,
-    borderRadius: RADIUS.lg,
-    borderWidth: 1,
-    borderColor: COLORS.border,
+    borderRadius: RADIUS.xl,
     padding: SPACING.md,
     marginBottom: SPACING.md,
     marginHorizontal: SPACING.lg,
     gap: SPACING.md,
+    ...SHADOWS.sm,
   },
 
   imageBox: {

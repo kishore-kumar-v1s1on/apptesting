@@ -6,7 +6,9 @@ import {
   COLORS,
   FONTS,
   FONT_SIZE,
+  PRESS,
   RADIUS,
+  SHADOWS,
   SPACING,
 } from "../../constants/theme";
 import type { Order, OrderStatus } from "../../contexts/OrdersContext";
@@ -63,7 +65,7 @@ const OrderCard: React.FC<Props> = ({ order, onPress }) => {
   return (
     <TouchableOpacity
       style={styles.card}
-      activeOpacity={0.85}
+      activeOpacity={PRESS.opacity}
       onPress={() => onPress(order)}
     >
       {/* Top row */}
@@ -120,11 +122,10 @@ const OrderCard: React.FC<Props> = ({ order, onPress }) => {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: COLORS.white,
-    borderRadius: RADIUS.lg,
-    borderWidth: 1,
-    borderColor: COLORS.border,
+    borderRadius: RADIUS.xl,
     padding: SPACING.md,
     marginBottom: SPACING.md,
+    ...SHADOWS.sm,
   },
   topRow: {
     flexDirection: "row",

@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { COLORS, FONTS, FONT_SIZE, SPACING, RADIUS } from '../../constants/theme';
+import { COLORS, FONTS, FONT_SIZE, SPACING, RADIUS, SHADOWS, PRESS } from '../../constants/theme';
 import { NAV_TABS } from '../../data/mockData';
 import { useCart } from '../../contexts/CartContext';
 
 const NavItem = ({ tab, isActive, onPress }) => (
-  <TouchableOpacity style={styles.item} onPress={onPress} activeOpacity={0.7}>
-    <View style={styles.iconWrap}>
-      <Text style={[styles.emoji, isActive && styles.emojiActive]}>
-        {tab.emoji}
-      </Text>
+  <TouchableOpacity style={styles.item} onPress={onPress} activeOpacity={PRESS.opacity}>
+    <View style={[styles.iconWrap, isActive && styles.iconWrapActive]}>
+      <Text style={styles.emoji}>{tab.emoji}</Text>
       {tab.badge != null && (
         <View style={styles.badge}>
           <Text style={styles.badgeText}>{tab.badge}</Text>
@@ -53,55 +51,68 @@ const BottomNav = ({ initialTab = 'Home', onTabChange }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    borderTopWidth: 1,
-    borderTopColor: COLORS.border,
     backgroundColor: COLORS.white,
     paddingBottom: 20,
-    paddingTop: SPACING.md - 2,
+    paddingTop: SPACING.sm,
+    paddingHorizontal: SPACING.sm,
     position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.borderLight,
+    ...SHADOWS.lg,
   },
   item: {
     flex: 1,
     alignItems: 'center',
-    gap: 3,
+    gap: 4,
+    paddingVertical: 4,
   },
   iconWrap: {
+    width: 44,
+    height: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: RADIUS.round,
     position: 'relative',
   },
-  emoji: {
-    fontSize: 22,
+  iconWrapActive: {
+    backgroundColor: COLORS.primaryLight,
   },
-  emojiActive: {
-    fontSize: 24,
+  emoji: {
+    fontSize: 20,
   },
   badge: {
     position: 'absolute',
-    top: -4,
-    right: -6,
+    top: -2,
+    right: 2,
     backgroundColor: COLORS.danger,
     borderRadius: RADIUS.round,
-    minWidth: 15,
-    height: 15,
+    minWidth: 16,
+    height: 16,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 2,
+    paddingHorizontal: 3,
+    borderWidth: 2,
+    borderColor: COLORS.white,
   },
   badgeText: {
     color: COLORS.white,
-    fontSize: FONT_SIZE.xs,
-    fontWeight: FONTS.bold,
+    fontSize: 9,
+    fontWeight: FONTS.extraBold,
+    lineHeight: 11,
+    includeFontPadding: false,
   },
   label: {
-    fontSize: FONT_SIZE.md,
+    fontSize: FONT_SIZE.xs,
     color: COLORS.gray,
-    fontWeight: FONTS.medium,
+    fontWeight: FONTS.semiBold,
+    letterSpacing: 0.1,
   },
   labelActive: {
     color: COLORS.primary,
-    fontWeight: FONTS.bold,
+    fontWeight: FONTS.extraBold,
   },
 });
 

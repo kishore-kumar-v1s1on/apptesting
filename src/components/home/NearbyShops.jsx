@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   FlatList,
   StyleSheet,
@@ -61,27 +61,50 @@ const ShopCard = ({ item, onPress }) => (
   </TouchableOpacity>
 );
 
-const NearbyShops = ({ onViewAll, onShopPress }) => {
+const NearbyShops = ({ onViewAll, onShopPress, categoryName }) => {
+  const data = useMemo(() => {
+    if (!categoryName) return NEARBY_SHOPS;
+    return NEARBY_SHOPS.filter((s) =>
+      s.categories?.includes(categoryName)
+    );
+  }, [categoryName]);
+
+  const title = categoryName
+    ? `Nearby ${categoryName} Shops`
+    : "Nearby Shops";
+
   return (
     <View style={styles.container}>
-      <SectionHeader title="Nearby Shops" onViewAll={onViewAll} />
+      <SectionHeader title={title} onViewAll={onViewAll} />
 
-      <FlatList
-        data={NEARBY_SHOPS}
-        horizontal
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <ShopCard item={item} onPress={onShopPress} />
-        )}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
-        decelerationRate="fast"
-        snapToAlignment="start"
-        removeClippedSubviews
-        initialNumToRender={5}
-        maxToRenderPerBatch={5}
-        windowSize={5}
-      />
+      {data.length === 0 ? (
+        <View style={styles.empty}>
+          <Text style={styles.emptyEmoji}>🛒</Text>
+          <Text style={styles.emptyTitle}>
+            No nearby {categoryName?.toLowerCase()} shops
+          </Text>
+          <Text style={styles.emptySub}>
+            Tap another category, or browse all shops.
+          </Text>
+        </View>
+      ) : (
+        <FlatList
+          data={data}
+          horizontal
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <ShopCard item={item} onPress={onShopPress} />
+          )}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.scrollContent}
+          decelerationRate="fast"
+          snapToAlignment="start"
+          removeClippedSubviews
+          initialNumToRender={5}
+          maxToRenderPerBatch={5}
+          windowSize={5}
+        />
+      )}
     </View>
   );
 };
@@ -179,6 +202,32 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.md,
     color: COLORS.primary,
     fontWeight: FONTS.semiBold,
+  },
+
+  // Empty state when filter has no matches
+  empty: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: SPACING.xl,
+    paddingHorizontal: SPACING.lg,
+    backgroundColor: COLORS.grayLight,
+    borderRadius: RADIUS.lg,
+  },
+  emptyEmoji: {
+    fontSize: 32,
+    marginBottom: SPACING.sm,
+  },
+  emptyTitle: {
+    fontSize: FONT_SIZE.lg,
+    fontWeight: FONTS.bold,
+    color: COLORS.dark,
+    marginBottom: 2,
+    textAlign: "center",
+  },
+  emptySub: {
+    fontSize: FONT_SIZE.base,
+    color: COLORS.gray,
+    textAlign: "center",
   },
 });
 
